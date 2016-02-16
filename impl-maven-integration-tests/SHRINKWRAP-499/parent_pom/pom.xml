@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.thealchemist</groupId>
+    <artifactId>parent_pom</artifactId>
+    <version>1.15-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>parent_pom</name>
+    <description>
+        Parent POM : Root maven project configuration.
+    </description>
+
+    <modules>
+        <module>parent-enterprise-project</module>
+    </modules>
+
+    <prerequisites>
+        <maven>3.2.0</maven>
+    </prerequisites>
+   
+   
+    
+    <dependencyManagement>
+    	<dependencies>
+    		<dependency>
+    			<groupId>org.liquibase</groupId>
+    			<artifactId>liquibase-core</artifactId>
+    			<version>${version.org.liquibase}</version>
+    		</dependency>
+    		<dependency>
+    		    <groupId>junit</groupId>
+    		    <artifactId>junit</artifactId>
+    		    <version>4.12</version>
+                <scope>test</scope>
+    		</dependency>
+    	</dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.18.1</version>
+                </plugin>
+                <plugin>        
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>2.5</version>
+                </plugin>
+                <!-- Compiler plugin enforces Java version compatibility and activates
+                annotation processors -->
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${version.compiler.plugin}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.7</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.19</version>
+                </plugin>
+                <!-- Apache parent includes docck and enforcer -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${gb.javadoc.version}</version>
+                    <configuration>
+                        <!-- keep only errors and warnings -->
+                        <quiet>true</quiet>
+                        <encoding>${gb.encoding}</encoding>
+                        <!--<docEncoding>${gb.docEncoding}</docEncoding>-->
+                        <notimestamp>true</notimestamp>
+                        <links>
+                            <link>${gb.javadoc.java.link}</link>
+                            <link>${gb.javadoc.javaee.link}</link>
+                        </links>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.6</version>
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
+                                <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+	                <groupId>org.apache.maven.plugins</groupId>
+	                <artifactId>maven-ejb-plugin</artifactId>
+	                <version>2.4</version>
+	            </plugin>
+	            <plugin>
+	                <groupId>org.apache.maven.plugins</groupId>
+	                <artifactId>maven-ear-plugin</artifactId>
+	                <version>2.9.1</version>
+	            </plugin>
+   	    		<plugin>
+	                <groupId>org.codehaus.mojo</groupId>
+	                <artifactId>build-helper-maven-plugin</artifactId>
+	                <version>1.9.1</version>
+	            </plugin>
+
+	            
+                <plugin>
+                    <groupId>org.liquibase</groupId>
+                    <artifactId>liquibase-maven-plugin</artifactId>
+                    <version>${version.org.liquibase}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        
+        
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>clirr-maven-plugin</artifactId>
+                <version>${gb.clirr.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.shared</groupId>
+                        <artifactId>maven-shared-jar</artifactId>
+                        <version>1.1</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.apache.bcel</groupId>
+                                <artifactId>bcel</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>bcel-findbugs</artifactId>
+                        <version>6.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <profiles>
+    
+        <profile>
+            <id>cobertura</id>
+            <activation>
+                <file>
+                    <exists>src/site/resources/profile.cobertura</exists>
+                </file>
+            </activation>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                        <version>${gb.cobertura.version}</version>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+
+        <profile>
+          <!--
+              Generate release notes in top-level directory from src/changes/changes.xml
+              Usage:
+              mvn changes:announcement-generate -Prelease-notes [-Dchanges.version=nnn]
+
+              Defining changes.version allows one to create the RN without first removing the SNAPSHOT suffix.
+
+               Requires file src/changes/release-notes.vm.
+               A sample template is available from:
+               https://svn.apache.org/repos/asf/commons/proper/commons-parent/trunk/src/changes/release-notes.vm
+            -->
+            <id>release-notes</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-changes-plugin</artifactId>
+                        <version>${gb.changes.version}</version>
+                        <configuration>
+                            <template>release-notes.vm</template>
+                            <templateDirectory>src/changes</templateDirectory>
+                            <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
+                            <outputDirectory>.</outputDirectory>
+                            <announcementFile>RELEASE-NOTES.txt</announcementFile>
+                            <announceParameters>
+                                <releaseVersion>${gb.release.version}</releaseVersion>
+                            </announceParameters>
+                            <!--                    <xmlPath>${basedir}/src/changes/changes.xml</xmlPath>-->
+                            <columnNames>Fix Version,Key,Component,Summary,Type,Resolution,Status</columnNames>
+                            <!-- Sort cols in natural order when using JQL for JIRA 5.1 -->
+                            <sortColumnNames>Fix Version DESC,Type,Key DESC</sortColumnNames>
+                            <resolutionIds>Fixed</resolutionIds>
+                            <statusIds>Resolved,Closed</statusIds>
+                            <!-- Don't include sub-task -->
+                            <typeIds>Bug,New Feature,Task,Improvement</typeIds>
+                            <!-- For JIRA >= 5.1 -->
+                            <useJql>true</useJql>
+                            <webUser>${jiraUser}</webUser>
+                            <webPassword>${jiraPassword}</webPassword>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>create-release-notes</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>announcement-generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+    </profiles>
+    
+    <reporting>
+    </reporting>
+    
+    <properties>
+        <build.number>DEV</build.number>
+        <gb.release.version>${project.version}</gb.release.version>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <!-- compiler and surefire plugin settings for "java" profiles -->
+        <gb.compiler.fork>false</gb.compiler.fork>
+        <version.compiler.plugin>3.3</version.compiler.plugin>
+        <version.war.plugin>2.1.1</version.war.plugin>
+        <gb.compiler.javac />
+        <gb.surefire.java />
+        
+        <!-- build meta inf -->
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
+        <implementation.build>${scmBranch}@r${buildNumber}; ${maven.build.timestamp}</implementation.build>
+        <!-- 2.9.1 includes fix for Javadoc vulnerability (CVE-2013-1571, VU#225657) MJAVADOC-370 -->
+        <gb.javadoc.version>2.9.1</gb.javadoc.version>
+        <gb.changes.version>2.9</gb.changes.version>
+        <gb.clirr.version>2.6.1</gb.clirr.version>
+        <gb.jxr.version>2.3</gb.jxr.version>
+        <gb.project-info.version>2.8</gb.project-info.version>
+        <gb.wagon-ssh.version>2.3</gb.wagon-ssh.version>
+        <gb.site-plugin.version>3.3</gb.site-plugin.version>
+        <gb.jacoco.version>0.7.2.201409121644</gb.jacoco.version>
+        <gb.cobertura.version>2.5.2</gb.cobertura.version>
+        <gb.jdepend.version>2.0-beta-2</gb.jdepend.version>
+        <gb.compiler.version>3.1</gb.compiler.version>
+        <!--
+          Encoding of Java source files: Make sure, that the compiler and
+          the javadoc generator use the right encoding. Subprojects may
+          overwrite this, if they are using another encoding.
+        -->
+        <gb.encoding>iso-8859-1</gb.encoding>
+        <gb.docEncoding>${gb.encoding}</gb.docEncoding>
+        <!-- Define encoding for filtering -->
+        <project.build.sourceEncoding>${gb.encoding}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${gb.encoding}</project.reporting.outputEncoding>
+
+        <gb.javadoc.java.link>http://download.oracle.com/javase/8/docs/api/</gb.javadoc.java.link>
+        <gb.javadoc.javaee.link>http://download.oracle.com/javaee/7/api/</gb.javadoc.javaee.link>
+
+        <!-- Default values for the jacoco-maven-plugin reports -->
+        <gb.jacoco.classRatio>1.00</gb.jacoco.classRatio>
+        <gb.jacoco.instructionRatio>0.90</gb.jacoco.instructionRatio>
+        <gb.jacoco.methodRatio>0.95</gb.jacoco.methodRatio>
+        <gb.jacoco.branchRatio>0.85</gb.jacoco.branchRatio>
+        <gb.jacoco.complexityRatio>0.85</gb.jacoco.complexityRatio>
+        <gb.jacoco.lineRatio>0.90</gb.jacoco.lineRatio>
+        <gb.jacoco.haltOnFailure>false</gb.jacoco.haltOnFailure>
+        
+        <version.org.liquibase>3.3.1</version.org.liquibase>
+    </properties>
+</project>
